@@ -1,1 +1,2 @@
 jm.processors.DocumentacaoProcessor
+jm.processors.ToStringProcessor
