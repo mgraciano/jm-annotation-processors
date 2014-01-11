@@ -50,14 +50,14 @@ public class ToStringProcessor extends AbstractProcessor {
                 }
             }
 
-            gerarClasseExtras(pacoteElement, classeElement, propriedades);
+            gerarClasseExtras(pacoteElement, classeElement, anotacao, propriedades);
         }
 
         return true;
     }
 
     private void gerarClasseExtras(final PackageElement pacoteElement, final TypeElement classeElement,
-            final Map<String, Element> propriedades) {
+            final ToString anotacao, final Map<String, Element> propriedades) {
         try {
             final JavaFileObject f = processingEnv.getFiler().createSourceFile(
                     classeElement.getQualifiedName() + "Extras");
@@ -65,7 +65,13 @@ public class ToStringProcessor extends AbstractProcessor {
             try (Writer w = f.openWriter()) {
                 PrintWriter pw = new PrintWriter(w);
                 pw.println("package " + pacoteElement.getQualifiedName().toString() + ";\n");
-                pw.println("public abstract class " + classeElement.getSimpleName() + "Extras {\n");
+
+                pw.print("public abstract class " + classeElement.getSimpleName() + "Extras");
+                if (!anotacao.superClass().equals("java.lang.Object")) {
+                    pw.print(" extends " + anotacao.superClass());
+                }
+                pw.println(" {\n");
+
                 pw.println("    protected " + classeElement.getSimpleName() + "Extras() {}\n");
 
                 for (Element metodo : propriedades.values()) {

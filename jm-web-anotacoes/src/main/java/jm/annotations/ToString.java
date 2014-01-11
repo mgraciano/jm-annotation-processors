@@ -13,5 +13,5 @@ public @interface ToString {
 
     public String[] value();
 
-    public Class<?> superClass() default Object.class;
+    public String superClass() default "java.lang.Object";
 }
