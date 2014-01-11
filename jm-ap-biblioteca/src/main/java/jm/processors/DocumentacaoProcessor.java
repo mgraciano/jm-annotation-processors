@@ -1,7 +1,8 @@
 package jm.processors;
 
+import static javax.annotation.processing.Completions.*;
 import java.io.IOException;
-import java.util.LinkedHashSet;
+import java.util.Arrays;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Completion;
@@ -21,11 +22,6 @@ import org.apache.http.client.fluent.Request;
 @SupportedAnnotationTypes({"jm.annotations.Documentacao"})
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class DocumentacaoProcessor extends AbstractProcessor {
-
-    private static final String[][] urls = new String[][]{
-        new String[]{"http://wiki.netbeans.org/", "Wiki do projeto NetBeans.org."},
-        new String[]{"http://www.wikipedia.org/", "Wiki do projeto Wikipedia - The Free Encyclopedia."},
-        new String[]{"http://wiki.suaempresa.com.br/", "Wiki interna da sua empresa."}};
 
     @Override
     public boolean process(final Set<? extends TypeElement> annotations,
@@ -53,20 +49,9 @@ public class DocumentacaoProcessor extends AbstractProcessor {
     @Override
     public Iterable<? extends Completion> getCompletions(Element element, AnnotationMirror annotation,
             ExecutableElement member, String userText) {
-        final Set<Completion> c = new LinkedHashSet<>(3);
-        for (final String[] url : urls) {
-            c.add(new Completion() {
-                @Override
-                public String getValue() {
-                    return '\"' + url[0] + '\"';
-                }
-
-                @Override
-                public String getMessage() {
-                    return url[1];
-                }
-            });
-        }
-        return c;
+        return Arrays.asList(
+                of("\"http://wiki.netbeans.org/\"", "Wiki do projeto NetBeans.org."),
+                of("\"http://www.wikipedia.org/\"", "Wiki do projeto Wikipedia - The Free Encyclopedia."),
+                of("\"http://wiki.suaempresa.com.br/\"", "Wiki interna da sua empresa."));
     }
 }
