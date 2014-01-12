@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <action>
+        <actionName>CUSTOM-Depurando Annotation Processors</actionName>
+        <displayName>Depurando Annotation Processors</displayName>
+        <goals>
+            <goal>clean:clean</goal>
+            <goal>compiler:compile</goal>
+        </goals>
+        <properties>
+            <jpda.listen>maven</jpda.listen>
+        </properties>
+    </action>
+</actions>
