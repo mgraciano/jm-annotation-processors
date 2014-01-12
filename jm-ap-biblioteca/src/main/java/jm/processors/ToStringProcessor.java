@@ -74,9 +74,9 @@ public class ToStringProcessor extends AbstractProcessor {
 
                 pw.println("    protected " + classeElement.getSimpleName() + "Extras() {}\n");
 
-                for (Element metodo : propriedades.values()) {
+                for (Element propriedade : propriedades.values()) {
                     pw.println(
-                            "    protected abstract " + criarAssinaturaBasicaGetter(metodo) + ";\n");
+                            "    protected abstract " + criarAssinaturaBasicaGetter(propriedade) + ";\n");
                 }
 
                 pw.println("    @Override");
@@ -101,8 +101,8 @@ public class ToStringProcessor extends AbstractProcessor {
         }
     }
 
-    private String criarAssinaturaBasicaGetter(final Element metodo) {
-        return metodo.asType() + " " + criarMetodoGetter(metodo);
+    private String criarAssinaturaBasicaGetter(final Element propriedade) {
+        return propriedade.asType() + " " + criarMetodoGetter(propriedade);
     }
 
     private String criarMetodoGetter(final Element metodo) {
